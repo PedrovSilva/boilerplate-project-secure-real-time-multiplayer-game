@@ -17,6 +17,7 @@ app.use('/assets', express.static(process.cwd() + '/assets'));
 app.use(helmet())
 app.use(helmet.noCache())
 app.use(helmet.contentSecurityPolicy({directives:{defaultSrc:["'self'"], scriptSrc:["'self'"]}}))
+app.use((req, res, next) => {res.setHeader("X-Powered-By", "PHP 7.4.3"); next()})
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
