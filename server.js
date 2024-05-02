@@ -7,11 +7,16 @@ const cors = require('cors');
 
 const fccTestingRoutes = require('./routes/fcctesting.js');
 const runner = require('./test-runner.js');
+const helmet = require('helmet');
 
 const app = express();
 
 app.use('/public', express.static(process.cwd() + '/public'));
 app.use('/assets', express.static(process.cwd() + '/assets'));
+
+app.use(helmet())
+app.use(helmet.noCache())
+app.use(helmet.contentSecurityPolicy({directives:{defaultSrc:["'self'"], scriptSrc:["'self'"]}}))
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
